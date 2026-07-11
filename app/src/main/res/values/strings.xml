@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">HDIS</string>
+    <string name="notification_channel_name">Bubble service</string>
+    <string name="notification_title">HDIS is ready</string>
+    <string name="notification_text">Tap the bubble to express yourself in English.</string>
+</resources>
