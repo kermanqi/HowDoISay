@@ -23,7 +23,6 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.howdoisay.hdis.R
 import com.howdoisay.hdis.data.ArkEnglishExpressionService
-import com.howdoisay.hdis.data.DoubaoAudioTranscriber
 import com.howdoisay.hdis.data.ExpressionException
 import com.howdoisay.hdis.data.SecureCredentialStore
 import com.howdoisay.hdis.data.toExpressionError
@@ -51,9 +50,8 @@ class OverlayForegroundService : Service() {
     private lateinit var credentialStore: SecureCredentialStore
     private lateinit var recorder: WavAudioRecorder
     private lateinit var tts: AndroidTtsManager
-    private val transcriber = DoubaoAudioTranscriber()
     private val expressionService = ArkEnglishExpressionService()
-    private val expressionPipeline = ExpressionPipeline(transcriber, expressionService)
+    private val expressionPipeline = ExpressionPipeline(expressionService)
 
     private var bubble: TextView? = null
     private var card: LinearLayout? = null

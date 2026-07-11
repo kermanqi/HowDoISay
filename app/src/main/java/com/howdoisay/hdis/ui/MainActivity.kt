@@ -198,23 +198,11 @@ private fun SettingsScreen(
             TextButton(onClick = onBatterySettings) { Text("Open Battery Optimization") }
         }
 
-        SettingsSection("Doubao ASR") {
-            CredentialField("App ID", credentials.asrAppId, false) {
-                onCredentialsChanged(credentials.copy(asrAppId = it))
-            }
-            CredentialField("Access Token", credentials.asrAccessToken, true) {
-                onCredentialsChanged(credentials.copy(asrAccessToken = it))
-            }
-            CredentialField("Resource ID", credentials.asrResourceId, false) {
-                onCredentialsChanged(credentials.copy(asrResourceId = it))
-            }
-        }
-
-        SettingsSection("Ark Chat") {
+        SettingsSection("Doubao-Seed-2.0-mini") {
             CredentialField("API Key", credentials.arkApiKey, true) {
                 onCredentialsChanged(credentials.copy(arkApiKey = it))
             }
-            CredentialField("Ark Model or Endpoint ID", credentials.arkEndpointId, false) {
+            CredentialField("Model or Endpoint ID", credentials.arkEndpointId, false) {
                 onCredentialsChanged(credentials.copy(arkEndpointId = it))
             }
             TextButton(onClick = onTest) { Text("Test Ark Connection") }
