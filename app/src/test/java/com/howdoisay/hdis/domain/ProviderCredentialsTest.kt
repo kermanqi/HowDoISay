@@ -5,8 +5,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ProviderCredentialsTest {
-    @Test fun `requires all provider fields`() {
+    @Test fun `requires Ark fields only`() {
         assertFalse(ProviderCredentials().isReady())
-        assertTrue(ProviderCredentials("id", "token", "resource", "ark", "ep-123").isReady())
+        assertTrue(ProviderCredentials(arkApiKey = "ark", arkEndpointId = "ep-123").isReady())
     }
 }

@@ -13,10 +13,10 @@ data class ProviderCredentials(
     fun arkCredentials(): ArkCredentials? = ArkCredentials(arkApiKey, arkEndpointId)
         .takeIf(ArkCredentials::isReady)
 
-    fun isReady(): Boolean = asrCredentials() != null && arkCredentials() != null
+    fun isReady(): Boolean = arkCredentials() != null
 
     companion object {
-        const val DEFAULT_ARK_MODEL = "doubao-seed-translation-250915"
+        const val DEFAULT_ARK_MODEL = "doubao-seed-2-0-mini-260428"
     }
 }
 
@@ -70,20 +70,14 @@ interface AudioTranscriber {
 }
 
 interface EnglishExpressionService {
-    suspend fun express(chineseTranscript: String, credentials: ArkCredentials): Result<String>
+    suspend fun express(audioFile: java.io.File, credentials: ArkCredentials): Result<String>
     suspend fun testConnection(credentials: ArkCredentials): Result<Unit>
 }
 
-class ExpressionPipeline(
-    private val transcriber: AudioTranscriber,
-    private val expressionService: EnglishExpressionService
-) {
+class ExpressionPipeline(private val expressionService: EnglishExpressionService) {
     suspend fun translate(audioFile: java.io.File, configuration: ProviderCredentials): Result<String> {
-        val asr = configuration.asrCredentials()
-            ?: return Result.failure(com.howdoisay.hdis.data.ExpressionException(ExpressionError.MissingConfiguration))
         val ark = configuration.arkCredentials()
             ?: return Result.failure(com.howdoisay.hdis.data.ExpressionException(ExpressionError.MissingConfiguration))
-        val transcript = transcriber.transcribe(audioFile, asr).getOrElse { return Result.failure(it) }
-        return expressionService.express(transcript, ark)
+        return expressionService.express(audioFile, ark)
     }
 }
